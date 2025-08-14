@@ -37,7 +37,8 @@ exports.login = async (req, res) => {
 
         res.cookie('accessToken', accessToken, {
             httpOnly: true,
-            secure: false,
+            secure: process.env.NODE_ENV === 'production', // 배포 시 https만 전송
+            // secure: false,
             sameSite: 'Lax',
             maxAge: 1000 * 60 * 15, // 15min
             path: '/',
@@ -45,7 +46,8 @@ exports.login = async (req, res) => {
 
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
-            secure: false,
+            secure: process.env.NODE_ENV === 'production', // 배포 시 https만 전송
+            // secure: false,
             sameSite: 'Lax',
             maxAge: 1000 * 60 * 60 *24 * 7, // 7day
             path: '/',
@@ -157,7 +159,8 @@ exports.reissueAccessToken = async (req, res) => {
         
         res.cookie('accessToken', newAccessToken, {
             httpOnly: true,
-            secure: false,
+            secure: process.env.NODE_ENV === 'production', // 배포 
+            // secure: false,
             sameSite: 'Lax',
             maxAge: 1000 * 60 * 15, // 15min
         });

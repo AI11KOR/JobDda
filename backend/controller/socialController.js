@@ -12,7 +12,8 @@ exports.handleGoogleCallback = async (req, res) => {
 
     res.cookie('accessToken', accessToken, {
       httpOnly: true,
-      secure: false,
+      secure: process.env.NODE_ENV === 'production', // 배포 시 https만 전송
+      // secure: false,
       sameSite: 'lax',
       path: '/',
       maxAge: 1000 * 60 * 15,
@@ -20,7 +21,8 @@ exports.handleGoogleCallback = async (req, res) => {
 
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
-      secure: false,
+      secure: process.env.NODE_ENV === 'production', // 배포 시 https만 전송
+      // secure: false,
       sameSite: 'lax',
       path: '/',
       maxAge: 1000 * 60 * 60 * 24 * 7,
@@ -46,7 +48,8 @@ exports.handleKakaoCallback = async (req, res) => {
 
         res.cookie('accessToken', accessToken, {
             httpOnly: true,
-            secure: false,
+            secure: process.env.NODE_ENV === 'production', // 배포 시 https만 전송
+            // secure: false,
             sameSite: 'lax',
             path: '/',
             maxAge: 1000 * 60 * 15,
@@ -54,7 +57,8 @@ exports.handleKakaoCallback = async (req, res) => {
 
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
-            secure: false,
+            secure: process.env.NODE_ENV === 'production', // 배포 시 https만 전송
+            // secure: false,
             sameSite: 'lax',
             path: '/',
             maxAge: 1000 * 60 * 60 * 24 * 7,
@@ -82,7 +86,8 @@ exports.handleNaverCallback = async (req, res) => {
 
     res.cookie('accessToken', accessToken, {
       httpOnly: true,
-      secure: false,
+      secure: process.env.NODE_ENV === 'production', // 배포 시 https만 전송
+      // secure: false,
       sameSite: 'lax',
       path: '/',
       maxAge: 1000 * 60 * 15
@@ -90,7 +95,8 @@ exports.handleNaverCallback = async (req, res) => {
 
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
-      secure: false,
+      secure: process.env.NODE_ENV === 'production', // 배포 시 https만 전송
+      // secure: false,
       sameSite: 'lax',
       path: '/',
       maxAge: 1000 * 60 * 60 * 24 * 7

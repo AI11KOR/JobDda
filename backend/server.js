@@ -1,8 +1,13 @@
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
-const PORT = process.env.PORT = 8000;
+const passport = require('passport');
+
+// Railway에서 제공하는 PORT 또는 기본 포트 사용
+const PORT = process.env.PORT || 5000;
+
 const app = express();
 
 const authRouter = require('./routes/authRouter');
@@ -12,11 +17,11 @@ const adminRouter = require('./routes/adminRouter');
 const socialRouter = require('./routes/socialRouter');
 
 // 소셜 로그인을 구현하기 위해서 아래 2줄이 server.js에 필요 연결을 위함
-const passport = require('passport');
 app.use(passport.initialize());
 
+// CORS 설정 - Railway 배포용
 app.use(cors({
-    origin:'http://localhost:3000',
+    origin: process.env.CLIENT_URL || 'http://localhost:3000',
     credentials:true, // 쿠키 주고받기 위한 핵심 옵션
 }))
 
@@ -39,6 +44,13 @@ app.use('/api', adminRouter);
 
 app.use('/auth', socialRouter);
 
+// ------------------- 프론트 빌드 파일 서빙 ------------------- //
+app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+// SPA 라우팅 처리 (React Router)
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
+});
 
 
 app.listen(PORT, () => {
