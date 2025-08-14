@@ -1,0 +1,290 @@
+/* 전체 페이지 래퍼 */
+.pageWrapper {
+    min-height: calc(100vh - 200px);
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    padding: 40px 20px 70px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* 성공 메시지 컨테이너 */
+  .successFind {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    padding: 60px 40px;
+    max-width: 600px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* 배경 장식 */
+  .successFind::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.05) 100%);
+    border-radius: 20px 20px 0 0;
+    pointer-events: none;
+  }
+  
+  /* 성공 아이콘 */
+  .successFind::after {
+    content: "✓";
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    font-weight: 900;
+    color: white;
+    box-shadow: 0 8px 25px -5px rgba(16, 185, 129, 0.4);
+    animation: successPulse 2s ease-in-out infinite;
+  }
+  
+  @keyframes successPulse {
+    0%,
+    100% {
+      transform: translateX(-50%) scale(1);
+      box-shadow: 0 8px 25px -5px rgba(16, 185, 129, 0.4);
+    }
+    50% {
+      transform: translateX(-50%) scale(1.05);
+      box-shadow: 0 12px 35px -5px rgba(16, 185, 129, 0.6);
+    }
+  }
+  
+  /* 제목 스타일 */
+  .successFind h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #1e293b;
+    margin: 80px 0 20px 0;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* 부제목 추가 */
+  .successFind p {
+    font-size: 1.1rem;
+    color: #64748b;
+    margin: 0 0 40px 0;
+    font-weight: 500;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* 버튼 스타일 */
+  .button {
+    width: 100%;
+    max-width: 320px;
+    height: 56px;
+    border: none;
+    border-radius: 12px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1.1rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+    color: white;
+    box-shadow: 0 8px 25px -5px rgba(30, 64, 175, 0.4);
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    letter-spacing: -0.01em;
+  }
+  
+  /* 버튼 호버 효과 */
+  .button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  .button:hover::before {
+    left: 100%;
+  }
+  
+  .button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px -5px rgba(30, 64, 175, 0.5);
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+  }
+  
+  .button:active {
+    transform: translateY(0);
+    box-shadow: 0 6px 20px -5px rgba(30, 64, 175, 0.4);
+  }
+  
+  /* 추가 정보 텍스트 */
+  .infoText {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    margin-top: 24px;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* 🔥 반응형 디자인 - 태블릿 (768px 이하) */
+  @media (max-width: 768px) {
+    .pageWrapper {
+      padding: 20px 16px 50px 16px;
+    }
+  
+    .successFind {
+      padding: 50px 32px;
+      max-width: 500px;
+    }
+  
+    .successFind::after {
+      width: 70px;
+      height: 70px;
+      font-size: 35px;
+      top: 25px;
+    }
+  
+    .successFind h1 {
+      font-size: 2rem;
+      margin: 70px 0 16px 0;
+    }
+  
+    .successFind p {
+      font-size: 1rem;
+      margin: 0 0 32px 0;
+    }
+  
+    .button {
+      max-width: 280px;
+      height: 52px;
+      font-size: 1rem;
+    }
+  }
+  
+  /* 🔥 반응형 디자인 - 모바일 (480px 이하) */
+  @media (max-width: 480px) {
+    .pageWrapper {
+      padding: 16px 12px 40px 12px;
+    }
+  
+    .successFind {
+      padding: 40px 24px;
+      max-width: 100%;
+      margin: 0 8px;
+    }
+  
+    .successFind::after {
+      width: 60px;
+      height: 60px;
+      font-size: 30px;
+      top: 20px;
+    }
+  
+    .successFind h1 {
+      font-size: 1.75rem;
+      margin: 60px 0 12px 0;
+      line-height: 1.3;
+    }
+  
+    .successFind p {
+      font-size: 0.95rem;
+      margin: 0 0 28px 0;
+    }
+  
+    .button {
+      width: 100%;
+      max-width: none;
+      height: 48px;
+      font-size: 0.95rem;
+      margin-top: 16px;
+    }
+  
+    .infoText {
+      font-size: 0.85rem;
+      margin-top: 20px;
+    }
+  }
+  
+  /* 🔥 반응형 디자인 - 초소형 모바일 (360px 이하) */
+  @media (max-width: 360px) {
+    .successFind {
+      padding: 32px 20px;
+    }
+  
+    .successFind h1 {
+      font-size: 1.5rem;
+      margin: 50px 0 10px 0;
+    }
+  
+    .successFind p {
+      font-size: 0.9rem;
+    }
+  
+    .button {
+      height: 44px;
+      font-size: 0.9rem;
+    }
+  }
+  
+  /* 🔥 반응형 디자인 - 대형 데스크톱 (1200px 이상) */
+  @media (min-width: 1200px) {
+    .pageWrapper {
+      padding: 60px 40px 90px 40px;
+    }
+  
+    .successFind {
+      padding: 80px 60px;
+      max-width: 700px;
+    }
+  
+    .successFind::after {
+      width: 90px;
+      height: 90px;
+      font-size: 45px;
+      top: 40px;
+    }
+  
+    .successFind h1 {
+      font-size: 3rem;
+      margin: 100px 0 24px 0;
+    }
+  
+    .successFind p {
+      font-size: 1.2rem;
+      margin: 0 0 48px 0;
+    }
+  
+    .button {
+      max-width: 360px;
+      height: 60px;
+      font-size: 1.2rem;
+      margin-top: 24px;
+    }
+  }
+  

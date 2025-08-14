@@ -1,0 +1,237 @@
+.footer {
+    width: 100%;
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 48px 32px 32px 32px;
+    margin-top: 0;
+    text-align: left !important; /* 전역 text-align: center 무시 */
+  }
+  
+  .topContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid #475569;
+    flex-wrap: wrap;
+    text-align: center; /* 상단 링크들만 중앙 정렬 */
+  }
+  
+  .topContainer p {
+    cursor: pointer;
+    color: #cbd5e1;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+    transition: all 0.2s ease;
+  }
+  
+  .topContainer p:hover {
+    color: white;
+  }
+  
+  .topContainer p strong {
+    color: white;
+    font-weight: 600;
+  }
+  
+  .divider {
+    color: #64748b;
+    font-size: 14px;
+    user-select: none;
+  }
+  
+  .bottomContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* 상단 정렬 강제 */
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 80px;
+    text-align: left !important; /* 전역 CSS 무시 */
+  }
+  
+  .leftContainer {
+    display: flex;
+    gap: 80px;
+    flex: 1;
+    align-items: flex-start; /* 상단 정렬 강제 */
+    text-align: left !important; /* 전역 CSS 무시 */
+  }
+  
+  .section {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    max-width: 150px;
+    text-align: left !important; /* 전역 CSS 무시 */
+    align-items: flex-start; /* 왼쪽 정렬 강제 */
+  }
+  
+  .section h3 {
+    margin: 0 0 20px 0; /* 제목 아래 간격 통일 */
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: left !important; /* 전역 CSS 무시 */
+    width: 100%;
+  }
+  
+  .section div {
+    margin-bottom: 12px; /* 항목 간 간격 통일 */
+    color: #cbd5e1;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    line-height: 1.5;
+    text-align: left !important; /* 전역 CSS 무시 */
+    width: 100%;
+  }
+  
+  .section div:hover {
+    color: white;
+  }
+  
+  .section div:last-child {
+    margin-bottom: 0;
+  }
+  
+  .rightContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 32px;
+    min-width: 320px;
+    text-align: right !important; /* 오른쪽 정렬 유지 */
+  }
+  
+  .logoSection {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: right !important;
+  }
+  
+  .footerLogo {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+  }
+  
+  .copyright {
+    font-size: 14px;
+    color: #cbd5e1;
+    font-weight: 400;
+    text-align: right !important;
+  }
+  
+  .brandName {
+    color: white;
+    font-weight: 600;
+  }
+  
+  .companyInfo {
+    text-align: right !important; /* 오른쪽 정렬 유지 */
+  }
+  
+  .companyInfo p {
+    margin: 6px 0;
+    font-size: 13px;
+    color: #94a3b8;
+    line-height: 1.6;
+    text-align: right !important; /* 오른쪽 정렬 유지 */
+  }
+  
+  .companyInfo p:first-child {
+    margin-top: 0;
+  }
+  
+  .companyInfo p:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* 반응형 디자인 */
+  @media (max-width: 768px) {
+    .footer {
+      padding: 32px 20px 24px 20px;
+    }
+  
+    .topContainer {
+      gap: 16px;
+      font-size: 13px;
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+    }
+  
+    .bottomContainer {
+      flex-direction: column;
+      gap: 40px;
+      align-items: center;
+      text-align: center !important; /* 모바일에서는 중앙 정렬 */
+    }
+  
+    .leftContainer {
+      gap: 40px;
+      justify-content: space-around;
+      width: 100%;
+      text-align: center !important; /* 모바일에서는 중앙 정렬 */
+    }
+  
+    .section {
+      max-width: none;
+      text-align: center !important; /* 모바일에서는 중앙 정렬 */
+      align-items: center;
+    }
+  
+    .section h3 {
+      text-align: center !important;
+    }
+  
+    .section div {
+      text-align: center !important;
+    }
+  
+    .rightContainer {
+      align-items: center;
+      text-align: center !important;
+      width: 100%;
+      min-width: auto;
+    }
+  
+    .logoSection {
+      text-align: center !important;
+    }
+  
+    .copyright {
+      text-align: center !important;
+    }
+  
+    .companyInfo {
+      text-align: center !important;
+    }
+  
+    .companyInfo p {
+      text-align: center !important;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .leftContainer {
+      flex-direction: column;
+      gap: 32px;
+      align-items: center;
+    }
+  
+    .topContainer {
+      flex-direction: column;
+      gap: 16px;
+    }
+  
+    .divider {
+      display: none;
+    }
+  }
+  

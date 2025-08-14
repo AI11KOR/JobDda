@@ -1,0 +1,340 @@
+/* 전체 페이지 래퍼 */
+.pageWrapper {
+    min-height: calc(100vh - 200px);
+    background: #f8fafc;
+    padding: 40px 0 70px 0;
+  }
+  
+  .payment {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    gap: 32px;
+  }
+  
+  /* 메인 콘텐츠 영역 */
+  .mainContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  /* 섹션 공통 스타일 */
+  .buyerSection,
+  .productsSection,
+  .paymentMethodSection {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .sectionHeader {
+    padding: 20px 24px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .sectionHeader h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+  }
+  
+  /* 구매자 정보 */
+  .buyerInfo {
+    padding: 24px;
+  }
+  
+  .infoGrid {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 16px;
+  }
+  
+  .infoLabel {
+    font-weight: 600;
+    color: #64748b;
+  }
+  
+  .infoValue {
+    color: #1e293b;
+  }
+  
+  /* 상품 목록 */
+  .productsList {
+    padding: 16px 24px;
+  }
+  
+  .productItem {
+    display: flex;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  
+  .productItem:last-child {
+    border-bottom: none;
+  }
+  
+  .productImage {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+    object-fit: cover;
+  }
+  
+  .productImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .productDetails {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .productName {
+    font-weight: 600;
+    color: #1e293b;
+  }
+  
+  .productPrice {
+    font-weight: 700;
+    color: #dc2626;
+  }
+  
+  .productQuantity {
+    font-size: 0.9rem;
+    color: #64748b;
+  }
+  
+  /* 결제 수단 */
+  .paymentMethods {
+    padding: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  
+  .paymentMethod {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .paymentMethod.selected {
+    border-color: #1e40af;
+    background: #eff6ff;
+  }
+  
+  .paymentMethod input[type="radio"] {
+    display: none;
+  }
+  
+  .radioCustom {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #cbd5e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.2s ease;
+  }
+  
+  .paymentMethod.selected .radioCustom {
+    border-color: #1e40af;
+  }
+  
+  .paymentMethod.selected .radioCustom::after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #1e40af;
+    position: absolute;
+  }
+  
+  /* 주문 요약 */
+  .orderSummary {
+    width: 360px;
+    flex-shrink: 0;
+    align-self: flex-start;
+    position: sticky;
+    top: 24px;
+  }
+  
+  .summaryHeader {
+    background: #1e293b;
+    color: white;
+    padding: 20px 24px;
+    border-radius: 16px 16px 0 0;
+  }
+  
+  .summaryHeader h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+  }
+  
+  .summaryContent {
+    background: white;
+    border-radius: 0 0 16px 16px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .summaryItem {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  
+  .summaryItem span:first-child {
+    color: #64748b;
+  }
+  
+  .summaryItem span:last-child {
+    font-weight: 600;
+    color: #1e293b;
+  }
+  
+  .summaryTotal {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    padding: 16px 0;
+    border-top: 2px solid #e2e8f0;
+    border-bottom: 2px solid #e2e8f0;
+    margin-bottom: 8px;
+  }
+  
+  .summaryTotal span:first-child {
+    font-weight: 600;
+    color: #1e293b;
+  }
+  
+  .summaryTotal span:last-child {
+    font-weight: 700;
+    color: #dc2626;
+    font-size: 1.25rem;
+  }
+  
+  .agreementCheckbox {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    margin-top: 8px;
+  }
+  
+  .agreementCheckbox input[type="checkbox"] {
+    display: none;
+  }
+  
+  .checkboxCustom {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 2px solid #cbd5e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: all 0.2s ease;
+  }
+  
+  .agreementCheckbox input[type="checkbox"]:checked + .checkboxCustom {
+    background: #1e40af;
+    border-color: #1e40af;
+  }
+  
+  .agreementText {
+    font-size: 0.85rem;
+    color: #64748b;
+    line-height: 1.5;
+    margin-top: 8px;
+  }
+  
+  .paymentButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 16px;
+    border-radius: 8px;
+    background: #1e40af;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 16px;
+  }
+  
+  .paymentButton:hover:not(.disabled) {
+    background: #1e3a8a;
+  }
+  
+  .paymentButton.disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+  }
+  
+  /* 반응형 디자인 */
+  @media (max-width: 1024px) {
+    .payment {
+      flex-direction: column;
+    }
+  
+    .orderSummary {
+      width: 100%;
+      position: static;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .paymentMethods {
+      grid-template-columns: 1fr;
+    }
+  
+    .infoGrid {
+      grid-template-columns: 100px 1fr;
+      gap: 12px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .productItem {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+  
+    .productImage {
+      width: 100%;
+      height: 160px;
+    }
+  }
+  

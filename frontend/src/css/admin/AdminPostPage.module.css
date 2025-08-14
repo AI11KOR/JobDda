@@ -1,0 +1,305 @@
+/* 전체 컨테이너 */
+.pageWrapper {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    padding: 40px 20px;
+  }
+  
+  .cardContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* 상단 컨테이너 - 세로 정렬 수정 */
+  .container {
+    background: white;
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 32px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #e2e8f0;
+  }
+  
+  .containerWord {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  
+  .containerWord p {
+    font-size: 1.1rem;
+    color: #64748b;
+    margin: 0;
+    font-weight: 500;
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .containerWord strong {
+    color: #1e293b;
+    font-weight: 700;
+    font-size: 1.2rem;
+  }
+  
+  /* 뒤로가기 버튼 */
+  .backBtn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 14px 24px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3);
+    min-width: 160px;
+    justify-content: center;
+  }
+  
+  .backBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px -5px rgba(59, 130, 246, 0.4);
+    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+  }
+  
+  /* 게시글 컨테이너 */
+  .postContainer {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    max-height: 600px;
+    overflow-y: auto;
+  }
+  
+  /* 테이블 헤더 */
+  .postHeader {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    color: white;
+    padding: 16px 20px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: -0.01em;
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  
+  /* 게시글 정보 행 - 높이 줄임 */
+  .postInfo {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 20px;
+    border-bottom: 1px solid #f1f5f9;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    align-items: center;
+    min-height: 50px;
+  }
+  
+  .postInfo:hover {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    transform: translateX(4px);
+  }
+  
+  .postInfo:last-child {
+    border-bottom: none;
+  }
+  
+  /* 개별 컬럼 스타일 */
+  .postTitle,
+  .postNickname,
+  .postDate,
+  .postDelete,
+  .postDeleteTitle {
+    width: 25%;
+    text-align: center;
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.9rem;
+  }
+  
+  .postTitle {
+    text-align: left;
+    color: #1e293b;
+    font-weight: 700;
+  }
+  
+  .postNickname {
+    color: #6366f1;
+    font-weight: 600;
+  }
+  
+  .postDate {
+    color: #64748b;
+    font-size: 0.85rem;
+  }
+  
+  /* 삭제 버튼 */
+  .postDelete {
+    color: #dc2626;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    display: inline-block;
+    background: rgba(220, 38, 38, 0.1);
+    border: 1px solid rgba(220, 38, 38, 0.2);
+    font-size: 0.8rem;
+  }
+  
+  .postDelete:hover {
+    background: #dc2626;
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+  }
+  
+  /* 페이지네이션 */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 32px;
+    padding: 20px;
+  }
+  
+  .paginationButton {
+    padding: 10px 18px;
+    background: white;
+    color: #64748b;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 70px;
+  }
+  
+  .paginationButton:hover:not(:disabled) {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+    color: #1e293b;
+  }
+  
+  .paginationButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .paginationMiddleBtn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    color: #64748b;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .paginationMiddleBtn:hover {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+    color: #1e293b;
+  }
+  
+  .activePage {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
+    color: white !important;
+    border-color: #3b82f6 !important;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  }
+  
+  /* 반응형 디자인 */
+  @media (max-width: 1024px) {
+    .pageWrapper {
+      padding: 20px 16px;
+    }
+  
+    .container {
+      flex-direction: column;
+      gap: 20px;
+      text-align: center;
+    }
+  
+    .containerWord {
+      align-items: center;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .postInfo {
+      padding: 10px 14px;
+      font-size: 0.85rem;
+    }
+  
+    .postTitle,
+    .postNickname,
+    .postDate,
+    .postDelete,
+    .postDeleteTitle {
+      font-size: 0.8rem;
+    }
+  
+    .pagination {
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+  
+    .paginationButton {
+      padding: 8px 14px;
+      min-width: 60px;
+      font-size: 0.75rem;
+    }
+  
+    .paginationMiddleBtn {
+      width: 36px;
+      height: 36px;
+      font-size: 0.8rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .postInfo {
+      flex-direction: column;
+      gap: 6px;
+      text-align: center;
+    }
+  
+    .postTitle,
+    .postNickname,
+    .postDate,
+    .postDelete,
+    .postDeleteTitle {
+      width: 100%;
+    }
+  
+    .postTitle {
+      text-align: center;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+    }
+  }
+  

@@ -1,0 +1,363 @@
+/* 전체 페이지 래퍼 */
+.pageWrapper {
+    min-height: calc(100vh - 200px);
+    background: #f8fafc;
+    padding: 40px 0 70px 0;
+  }
+  
+  .conditionContainer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  /* 헤더 섹션 */
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 32px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+  
+  .title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #1e293b;
+    margin: 0 0 12px 0;
+    letter-spacing: -0.025em;
+  }
+  
+  .subtitle {
+    font-size: 1.1rem;
+    color: #64748b;
+    margin: 0;
+    font-weight: 500;
+  }
+  
+  /* 전체 동의 섹션 */
+  .agreeAllSection {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    border-radius: 16px;
+    padding: 24px 32px;
+    margin-bottom: 32px;
+    box-shadow: 0 8px 25px -5px rgba(30, 41, 59, 0.3);
+  }
+  
+  .agreeAllLabel {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    color: white;
+  }
+  
+  .agreeAllText {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+  
+  /* 약관 컨테이너 */
+  .termsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+  
+  /* 개별 약관 섹션 */
+  .termSection {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border: 2px solid #f1f5f9;
+    transition: all 0.3s ease;
+  }
+  
+  .termSection:hover {
+    border-color: #e2e8f0;
+    box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* 약관 헤더 */
+  .termHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 24px;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .termIcon {
+    font-size: 20px;
+    color: #1e40af;
+  }
+  
+  .termTitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+    flex: 1;
+  }
+  
+  .required {
+    background: #dc2626;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 6px;
+    letter-spacing: 0.025em;
+  }
+  
+  /* 약관 내용 */
+  .termContent {
+    height: 200px;
+    overflow-y: auto;
+    padding: 0;
+    position: relative;
+    background: #fafbfc;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .termText {
+    padding: 24px;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #374151;
+    white-space: pre-line;
+    font-weight: 500;
+  }
+  
+  .scrollIndicator {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(220, 38, 38, 0.1));
+    padding: 16px;
+    text-align: center;
+    color: #dc2626;
+    font-weight: 700;
+    font-size: 0.9rem;
+    backdrop-filter: blur(4px);
+    animation: pulse 2s infinite; /* 🔑 깜빡이는 효과 */
+  }
+  
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+  
+  /* 약관 동의 체크박스 */
+  .termAgreeLabel {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 24px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .termAgreeLabel:hover:not(.disabled) {
+    background: #f8fafc;
+  }
+  
+  .agreeText {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1e293b;
+    transition: all 0.2s ease;
+  }
+  
+  .agreeText.disabled {
+    color: #94a3b8;
+  }
+  
+  /* 커스텀 체크박스 */
+  .hiddenCheckbox {
+    display: none;
+  }
+  
+  .customCheckbox {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    border: 2px solid #cbd5e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    color: white;
+    font-size: 14px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+  }
+  
+  .hiddenCheckbox:checked + .customCheckbox {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border-color: #10b981;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  }
+  
+  .customCheckbox.disabled {
+    background: #f1f5f9;
+    border-color: #e2e8f0;
+    cursor: not-allowed;
+  }
+  
+  /* 전체 동의 체크박스 스타일 */
+  .agreeAllLabel .customCheckbox {
+    width: 28px;
+    height: 28px;
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .agreeAllLabel .hiddenCheckbox:checked + .customCheckbox {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: white;
+    color: white;
+  }
+  
+  /* 버튼 컨테이너 */
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+    padding: 32px 0;
+  }
+  
+  .nextButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px 48px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 240px;
+    letter-spacing: -0.025em;
+  }
+  
+  .nextButton.active {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    box-shadow: 0 8px 25px -5px rgba(16, 185, 129, 0.4);
+  }
+  
+  .nextButton.active:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px -5px rgba(16, 185, 129, 0.5);
+  }
+  
+  .nextButton.disabled {
+    background: #e2e8f0;
+    color: #94a3b8;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+  
+  .buttonIcon {
+    font-size: 16px;
+  }
+  
+  /* 스크롤바 스타일링 */
+  .termContent::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .termContent::-webkit-scrollbar-track {
+    background: #f1f5f9;
+  }
+  
+  .termContent::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #cbd5e1 0%, #94a3b8 100%);
+    border-radius: 4px;
+  }
+  
+  .termContent::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%);
+  }
+  
+  /* 반응형 디자인 */
+  @media (max-width: 768px) {
+    .conditionContainer {
+      padding: 0 16px;
+    }
+  
+    .header {
+      padding: 24px 20px;
+    }
+  
+    .title {
+      font-size: 1.75rem;
+    }
+  
+    .subtitle {
+      font-size: 1rem;
+    }
+  
+    .agreeAllSection {
+      padding: 20px 24px;
+    }
+  
+    .agreeAllText {
+      font-size: 1.1rem;
+    }
+  
+    .termHeader {
+      padding: 16px 20px;
+    }
+  
+    .termText {
+      padding: 20px;
+      font-size: 0.85rem;
+    }
+  
+    .termAgreeLabel {
+      padding: 16px 20px;
+    }
+  
+    .nextButton {
+      padding: 14px 32px;
+      font-size: 1rem;
+      min-width: 200px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .termContent {
+      height: 160px;
+    }
+  
+    .termHeader {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+  
+    .termTitle {
+      font-size: 1rem;
+    }
+  
+    .nextButton {
+      width: 100%;
+      min-width: auto;
+    }
+  }
+  

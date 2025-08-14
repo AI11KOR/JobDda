@@ -1,0 +1,338 @@
+.container {
+    padding: 40px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #f8fafc;
+    min-height: 100vh;
+  }
+  
+  .detailCard {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+  
+  .postHeader {
+    padding: 24px 32px;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .postMeta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: #64748b;
+    font-size: 14px;
+  }
+  
+  .metaIcon {
+    color: #94a3b8;
+  }
+  
+  .author {
+    font-weight: 600;
+    color: #1e293b;
+  }
+  
+  .date {
+    font-weight: 500;
+  }
+  
+  .postContent {
+    padding: 32px;
+  }
+  
+  .postTitle {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1e293b;
+    margin: 0 0 24px 0;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+  }
+  
+  .postBody {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #374151;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  
+  .postActions {
+    padding: 24px 32px;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .likeSection {
+    display: flex;
+    align-items: center;
+  }
+  
+  .likeButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+    color: #dc2626;
+    border: 2px solid #fecaca;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .likeButton:hover {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    color: white;
+    border-color: #dc2626;
+    transform: translateY(-1px);
+  }
+  
+  .heartIcon {
+    font-size: 16px;
+  }
+  
+  .actionButtons {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .actionButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+  }
+  
+  .buttonIcon {
+    font-size: 14px;
+  }
+  
+  .backButton {
+    background: white;
+    color: #64748b;
+    border: 2px solid #e2e8f0;
+  }
+  
+  .backButton:hover {
+    background: #f1f5f9;
+    color: #475569;
+    border-color: #cbd5e1;
+  }
+  
+  .editButton {
+    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+    color: white;
+    box-shadow: 0 2px 4px rgba(30, 64, 175, 0.2);
+  }
+  
+  .editButton:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+  }
+  
+  .deleteButton {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    color: white;
+    box-shadow: 0 2px 4px rgba(220, 38, 38, 0.2);
+  }
+  
+  .deleteButton:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+  }
+  
+  .commentSection {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+  }
+  
+  .commentHeader {
+    padding: 24px 32px;
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .commentHeaderIcon {
+    font-size: 20px;
+  }
+  
+  .commentTitle {
+    font-size: 20px;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: -0.025em;
+  }
+  
+  .commentWrite {
+    padding: 24px 32px;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .commentTextarea {
+    width: 100%;
+    box-sizing: border-box;
+    height: 120px;
+    padding: 16px 20px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    resize: vertical;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: white;
+    font-family: inherit;
+    margin-bottom: 16px;
+  }
+  
+  .commentSubmitButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 4px rgba(30, 64, 175, 0.2);
+  }
+  
+  .commentSubmitButton:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+  }
+  
+  .commentList {
+    padding: 0 32px 32px;
+  }
+  
+  .commentItem {
+    padding: 20px 0;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  
+  .commentItem:last-child {
+    border-bottom: none;
+  }
+  
+  .commentAuthor {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    color: #1e293b;
+    font-weight: 700;
+  }
+  
+  .commentAuthorIcon {
+    color: #64748b;
+    font-size: 14px;
+  }
+  
+  .commentContent {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #374151;
+    margin-bottom: 12px;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  
+  .commentFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .commentDate {
+    font-size: 13px;
+    color: #94a3b8;
+    font-weight: 500;
+  }
+  
+  .commentDeleteButton {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .commentDeleteButton:hover {
+    background: #dc2626;
+    color: white;
+    border-color: #dc2626;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      padding: 20px 16px;
+    }
+  
+    .postHeader,
+    .postContent,
+    .postActions,
+    .commentHeader,
+    .commentWrite,
+    .commentList {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+  
+    .postTitle {
+      font-size: 24px;
+    }
+  
+    .postActions {
+      flex-direction: column;
+      gap: 16px;
+      align-items: stretch;
+    }
+  
+    .actionButtons {
+      flex-direction: column;
+    }
+  
+    .actionButton {
+      width: 100%;
+      justify-content: center;
+    }
+  
+    .commentFooter {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+  }
+  

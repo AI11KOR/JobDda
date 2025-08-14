@@ -1,0 +1,142 @@
+.header {
+    width: 100vw;
+    height: 80px;
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    color: #e2e8f0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #475569;
+  }
+  
+  .leftSide {
+    display: flex;
+    gap: 48px;
+    align-items: center;
+  }
+  
+  .leftSide1 {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .leftSide2 {
+    display: flex;
+    gap: 32px;
+  }
+  
+  .img {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+  }
+  
+  .logo {
+    font-size: 28px;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+    letter-spacing: -0.025em;
+  }
+  
+  .leftBtn {
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 6px;
+    color: #cbd5e1;
+  }
+  
+  .leftBtn:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .rightSide {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+  
+  .rightBtn {
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 8px 16px;
+    border-radius: 6px;
+    color: #cbd5e1;
+    border: 1px solid #475569;
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  .rightBtn:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #64748b;
+  }
+  
+  .nickname {
+    color: white;
+    font-weight: 500;
+    font-size: 14px;
+  }
+  
+  .adminNickname {
+    color: #fbbf24;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  
+  /* 반응형 디자인 */
+  @media (max-width: 768px) {
+    .header {
+      height: 70px;
+      padding: 0 20px;
+      justify-content: space-between;
+    }
+  
+    .leftSide {
+      gap: 24px;
+    }
+  
+    .leftSide2 {
+      gap: 20px;
+    }
+  
+    .leftBtn,
+    .rightBtn {
+      font-size: 14px;
+      padding: 6px 12px;
+    }
+  
+    .logo {
+      font-size: 24px;
+    }
+  
+    .img {
+      width: 40px;
+      height: 40px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .leftSide2 {
+      display: none;
+    }
+  
+    .rightSide {
+      gap: 12px;
+    }
+  
+    .nickname,
+    .adminNickname {
+      display: none;
+    }
+  }
+  

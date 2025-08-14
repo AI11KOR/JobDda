@@ -1,0 +1,245 @@
+/* 전체 컨테이너 */
+.pageWrapper {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 헤더 타이틀 스타일 */
+.adminTitle {
+  text-align: center;
+  margin-bottom: 30px;
+  color: white;
+}
+
+.adminTitle h1 {
+  font-size: 3rem;
+  font-weight: 900;
+  margin: 0 0 16px 0;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  letter-spacing: -0.02em;
+}
+
+.adminTitle p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* 카드 컨테이너 - 중앙 정렬 수정 */
+.cardContainer {
+  position: relative;
+  width: 450px;
+  height: 600px;
+  margin: 0 auto;
+  perspective: 1200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 개별 카드 스타일 - 완전한 중앙 정렬 */
+.card {
+  position: absolute;
+  width: 350px;
+  height: 450px;
+  padding: 0;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  opacity: 0.9;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 1;
+}
+
+.card:hover {
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
+}
+
+.card.active {
+  opacity: 1;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+  transform: translate(-50%, -50%) translateY(-10px) scale(1.05);
+}
+
+/* 카드 내용 - 버튼이 들어갈 공간 확보 */
+.cardContent {
+  position: relative;
+  z-index: 2;
+  padding: 30px 30px;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+}
+
+.card.active .cardContent {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cardContent h3 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0 0 20px 0;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cardContent p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #475569;
+  margin: 0 0 40px 0;
+  font-weight: 500;
+  flex-grow: 1;
+}
+
+/* 카드 세부사항 - 하단에 고정 */
+.cardDetail {
+  margin-top: auto;
+  padding-top: 25px;
+  border-top: 2px solid rgba(255, 255, 255, 0.3);
+  animation: slideUp 0.6s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 버튼 스타일 */
+.goBtn {
+  width: 100%;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 25px rgba(30, 41, 59, 0.3);
+  letter-spacing: -0.01em;
+  position: relative;
+  overflow: hidden;
+}
+
+.goBtn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.goBtn:hover::before {
+  left: 100%;
+}
+
+.goBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(30, 41, 59, 0.4);
+  background: linear-gradient(135deg, #334155 0%, #475569 100%);
+}
+
+.goBtn:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 20px rgba(30, 41, 59, 0.3);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .pageWrapper {
+    padding: 20px 16px;
+  }
+
+  .cardContainer {
+    width: 100%;
+    max-width: 350px;
+    height: 450px;
+  }
+
+  .card {
+    width: 100%;
+    height: 400px;
+  }
+
+  .cardContent {
+    padding: 30px 25px;
+  }
+
+  .cardContent h3 {
+    font-size: 1.7rem;
+  }
+
+  .cardContent p {
+    font-size: 0.95rem;
+  }
+
+  .adminTitle h1 {
+    font-size: 2.2rem;
+  }
+
+  .adminTitle p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    height: 380px;
+  }
+
+  .cardContent {
+    padding: 25px 20px;
+  }
+
+  .cardContent h3 {
+    font-size: 1.5rem;
+  }
+
+  .goBtn {
+    padding: 14px 20px;
+    font-size: 0.9rem;
+  }
+}

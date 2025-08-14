@@ -1,0 +1,151 @@
+.container {
+    padding: 40px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #f8fafc;
+    min-height: 100vh;
+  }
+  
+  .editCard {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .formSection {
+    padding: 32px;
+  }
+  
+  .inputGroup {
+    margin-bottom: 32px;
+  }
+  
+  .label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-weight: 700;
+    color: #1e293b;
+    font-size: 16px;
+  }
+  
+  .inputIcon {
+    color: #64748b;
+    font-size: 16px;
+  }
+  
+  .titleInput {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 16px 20px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #f8fafc;
+  }
+  
+  .titleInput:focus {
+    outline: none;
+    border-color: #1e40af;
+    box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+    background: white;
+  }
+  
+  .contentTextarea {
+    width: 100%;
+    box-sizing: border-box;
+    height: 400px;
+    padding: 20px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 16px;
+    line-height: 1.6;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #f8fafc;
+    resize: vertical;
+    font-family: inherit;
+  }
+  
+  .contentTextarea:focus {
+    outline: none;
+    border-color: #1e40af;
+    box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+    background: white;
+  }
+  
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    padding: 24px 32px;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+  }
+  
+  .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    min-width: 140px;
+  }
+  
+  .buttonIcon {
+    font-size: 16px;
+  }
+  
+  .cancelButton {
+    background: white;
+    color: #64748b;
+    border: 2px solid #e2e8f0;
+  }
+  
+  .cancelButton:hover {
+    background: #f1f5f9;
+    color: #475569;
+    border-color: #cbd5e1;
+  }
+  
+  .saveButton {
+    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(30, 64, 175, 0.3);
+  }
+  
+  .saveButton:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px -5px rgba(30, 64, 175, 0.4);
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      padding: 20px 16px;
+    }
+  
+    .formSection,
+    .buttonContainer {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+  
+    .buttonContainer {
+      flex-direction: column;
+    }
+  
+    .button {
+      width: 100%;
+    }
+  }
+  
