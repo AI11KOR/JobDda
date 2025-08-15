@@ -1,18 +1,19 @@
 {
-  "name": "jobdda",
+  "name": "korean-language-app",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
     "server": "cd backend && npm run dev",
     "client": "cd frontend && npm start",
-    "build": "cd frontend && npm install --legacy-peer-deps && npm run build",
-    "start": "cd backend && npm install --legacy-peer-deps && node server.js",
+    "build": "cd frontend && npm install && npm run build",
+    "start": "cd backend && npm start",
     "install-deps": "cd backend && npm install && cd ../frontend && npm install",
     "lint": "next lint",
     "dev:backend": "cd backend && npm run dev",
     "dev:frontend": "cd frontend && npm start",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build",
+    "vercel-build": "cd frontend && npm install && npm run build"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -85,7 +86,7 @@
     "typescript": "^5"
   },
   "engines": {
-    "node": ">=18.0.0",
+    "node": "18.x",
     "npm": ">=8.0.0"
   }
 }
