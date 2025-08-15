@@ -28,8 +28,8 @@
     "passport-google-oauth20": "^2.0.0",
     "passport-kakao": "^1.0.1",
     "passport-naver": "^1.0.6",
-    "cors": "^2.8.5",
-    "jsonwebtoken": "^9.0.0"
+    "jsonwebtoken": "^9.0.0",
+    "cors": "^2.8.5"
   },
   "engines": {
     "node": ">=18.0.0"
