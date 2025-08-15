@@ -1,34 +1,52 @@
-import axios from 'axios';
+import axios from "axios"
+
+// 환경에 따른 baseURL 설정
+const getBaseURL = () => {
+  if (process.env.NODE_ENV === "production") {
+    return process.env.REACT_APP_API_URL || "https://your-backend.railway.app"
+  }
+  return "http://localhost:5000"
+}
+
+console.log("🌐 API Base URL:", getBaseURL())
+
 const API = axios.create({
-    baseURL:'http://localhost:8000',
-    withCredentials: true, // 이 부분이 있어야 쿠키(accessToken)가 전송됨됨
+  baseURL: getBaseURL(),
+  withCredentials: true,
+  timeout: 10000,
+  headers: {
+    "Content-Type": "application/json",
+  },
 })
 
-// 아래 코드는 인터셉터에서 자동 재요청을 한다
-API.interceptors.response.use(
-    response => response,
-    async (error) => {
-      const originalRequest = error.config;
-  
-      // accessToken 만료로 401 응답, 그리고 재요청하지 않은 경우만 처리
-      if (error.response?.status === 401 && !originalRequest._retry) {
-        originalRequest._retry = true;
-  
-        try {
-          // ✅ 토큰 재발급 요청 null은 post 요청에는 body가 없기 때문에 null로 전달
-          await axios.post('http://localhost:8000/api/token/reissue', null, {
-            withCredentials: true,
-          });
-  
-          // ✅ 기존 요청 다시 실행
-          return API(originalRequest);
-        } catch (refreshError) {
-          return Promise.reject(refreshError);
-        }
-      }
-  
-      return Promise.reject(error);
-    }
-);
+// 요청 인터셉터
+API.interceptors.request.use(
+  (config) => {
+    console.log(`🚀 API Request: ${config.method?.toUpperCase()} ${config.url}`)
+    return config
+  },
+  (error) => {
+    console.error("❌ Request Error:", error)
+    return Promise.reject(error)
+  },
+)
 
-export default API;
+// 응답 인터셉터 - 토큰 재발급 로직 제거 (무한루프 방지)
+API.interceptors.response.use(
+  (response) => {
+    console.log(`✅ API Response: ${response.status} ${response.config.url}`)
+    return response
+  },
+  async (error) => {
+    console.error(`❌ API Error: ${error.response?.status} ${error.config?.url}`)
+
+    // 네트워크 에러 처리
+    if (!error.response) {
+      console.error("🌐 Network Error - 서버에 연결할 수 없습니다.")
+    }
+
+    return Promise.reject(error)
+  },
+)
+
+export default API
