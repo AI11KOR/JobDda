@@ -19,9 +19,9 @@ app.use(passport.initialize())
 app.use(
   cors({
     origin: [
-      "http://localhost:3000",
-      "https://job-dda.vercel.app", 
-      "https://job-dda-dngus523-5101s-projects.vercel.app",
+      "http://localhost:3000", // 로컬 개발용
+      "https://job-dda.vercel.app", // vercel 메인 배포 url
+      "https://job-dda-dngus523-5101s-projects.vercel.app", // vercel 프로젝트별 자동 생성 url
       process.env.CLIENT_URL
     ].filter(Boolean), // undefined 값 제거
     credentials: true,

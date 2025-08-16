@@ -13,7 +13,18 @@ let db;
 const connectDB = async () => {
     try {
         if(db) return db;
-        const client = await new MongoClient(url).connect();
+        
+        // <CHANGE> SSL/TLS 옵션 추가하여 MongoDB Atlas 연결 문제 해결
+        const client = await new MongoClient(url, {
+            ssl: true,
+            sslValidate: true,
+            tlsAllowInvalidCertificates: false,
+            tlsAllowInvalidHostnames: false,
+            serverSelectionTimeoutMS: 30000,
+            connectTimeoutMS: 30000,
+            socketTimeoutMS: 30000,
+        }).connect();
+        
         db = client.db('forum');
         console.log('DB연결 성공');
         console.log("🌐 Environment:", process.env.NODE_ENV || "development");
