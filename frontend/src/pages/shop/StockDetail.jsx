@@ -5,7 +5,9 @@ import API from "../../api/axiosApi"
 import Title from "../../components/Title"
 import { useNavigate, useParams } from "react-router-dom"
 import styles from "../../css/shop/StockDetail.module.css"
-import ReactImageMagnify from "react-image-magnify"
+// import ReactImageMagnify from "react-image-magnify"
+// <CHANGE> 기존 react-image-magnify import 제거하고 새로운 패키지로 교체
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch"
 import { useDispatch } from "react-redux"
 import { addToCart } from "../../slices/cartSlice"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -108,7 +110,7 @@ const StockDetail = () => {
 
         <div className={styles.stock}>
           <div className={styles.imageSection}>
-            {stock?.image && (
+            {/* {stock?.image && (
               <ReactImageMagnify
                 {...{
                   smallImage: {
@@ -142,7 +144,37 @@ const StockDetail = () => {
                   },
                 }}
               />
-            )}
+            )} */}
+            <TransformWrapper
+              initialScale={1}
+              minScale={1}
+              maxScale={3}
+              wheel={{ step: 0.1 }}
+              pinch={{ step: 5 }}
+              doubleClick={{ step: 0.7, mode: "toggle" }}
+            >
+              <TransformComponent
+                wrapperStyle={{
+                  width: "500px",
+                  height: "500px",
+                  cursor: "zoom-in"
+                }}
+                contentStyle={{
+                  width: "100%",
+                  height: "100%"
+                }}
+              >
+                <img
+                  src={stock.image || "/placeholder.svg"}
+                  alt="상품 이미지"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover"
+                  }}
+                />
+              </TransformComponent>
+            </TransformWrapper>
           </div>
 
           <div className={styles.stockInfo}>
