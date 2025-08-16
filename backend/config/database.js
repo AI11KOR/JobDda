@@ -14,10 +14,9 @@ const connectDB = async () => {
     try {
         if(db) return db;
         
-        // <CHANGE> SSL/TLS 옵션 추가하여 MongoDB Atlas 연결 문제 해결
+        // <CHANGE> sslValidate 옵션 제거하고 올바른 TLS 옵션 사용
         const client = await new MongoClient(url, {
-            ssl: true,
-            sslValidate: true,
+            tls: true,
             tlsAllowInvalidCertificates: false,
             tlsAllowInvalidHostnames: false,
             serverSelectionTimeoutMS: 30000,
