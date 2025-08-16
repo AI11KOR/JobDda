@@ -18,7 +18,7 @@
     "@reduxjs/toolkit": "^2.8.2",
     "dayjs": "^1.11.13",
     "dotenv": "^16.5.0",
-    "iamport-react-native": "^2.0.15",
+    "@portone/browser-sdk": "^0.0.9",
     "jwt-decode": "^4.0.0",
     "react-daum-postcode": "3.2.0",
     "react-image-magnify": "2.7.4",
