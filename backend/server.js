@@ -15,7 +15,6 @@ const socialRouter = require("./routes/socialRouter")
 
 app.use(passport.initialize())
 
-// <CHANGE> Vercel 환경변수 사용하도록 수정
 app.use(
   cors({
     origin: process.env.CLIENT_URL || "http://localhost:3000",
@@ -34,7 +33,6 @@ app.use((req, res, next) => {
   next()
 })
 
-// <CHANGE> 기존 라우터 모두 유지
 app.use("/api", authRouter)
 app.use("/api", postRouter)
 app.use("/api", shopRouter)
@@ -63,7 +61,6 @@ app.get("/", (req, res) => {
   })
 })
 
-// <CHANGE> 기존 에러 처리 유지
 app.use("*", (req, res) => {
   res.status(404).json({
     error: "Route not found",
@@ -80,24 +77,11 @@ app.use((error, req, res, next) => {
   })
 })
 
-// <CHANGE> Vercel 서버리스 배포를 위해 app.listen() 제거하고 export 추가
+// Render용 서버 시작
+const PORT = process.env.PORT || 5000
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚀 Server running on port ${PORT}`)
+})
+
+// Vercel 호환성 유지
 module.exports = app
-
-
-// const express = require("express")
-// const app = express()
-
-// app.get("/", (req, res) => {
-//   console.log("[v0] Root route accessed")
-//   res.json({ 
-//     message: "Test server working",
-//     timestamp: new Date().toISOString()
-//   })
-// })
-
-// app.get("/test", (req, res) => {
-//   console.log("[v0] Test route accessed")
-//   res.json({ status: "OK" })
-// })
-
-// module.exports = app
