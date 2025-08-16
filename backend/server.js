@@ -15,9 +15,15 @@ const socialRouter = require("./routes/socialRouter")
 
 app.use(passport.initialize())
 
+// <CHANGE> CORS origin을 단일 URL에서 배열로 변경하여 Vercel 프론트엔드 도메인들 허용
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:3000",
+    origin: [
+      "http://localhost:3000",
+      "https://job-dda.vercel.app", 
+      "https://job-dda-dngus523-5101s-projects.vercel.app",
+      process.env.CLIENT_URL
+    ].filter(Boolean), // undefined 값 제거
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
@@ -77,11 +83,9 @@ app.use((error, req, res, next) => {
   })
 })
 
-// Render용 서버 시작
 const PORT = process.env.PORT || 5000
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running on port ${PORT}`)
 })
 
-// Vercel 호환성 유지
 module.exports = app
