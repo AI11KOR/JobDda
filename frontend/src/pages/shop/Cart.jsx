@@ -241,7 +241,7 @@ const Cart = () => {
               {/* 상품의 배열  */}
               <div className={styles.cartList}>
                 {cartItems.map((item) => (
-                  <div className={styles.cartItem} key={item.id}>
+                  <div className={styles.cartItem} key={item._id}>
                     <label className={styles.itemCheckbox}>
                       <input
                         type="checkbox"

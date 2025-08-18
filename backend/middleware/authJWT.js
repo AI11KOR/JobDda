@@ -68,7 +68,7 @@ const authJWT = async (req, res, next) => {
                     httpOnly: true, // 자바스크립트에서 접근 못하게 함
                     secure: process.env.NODE_ENV === 'production', // Node.js에서 기본적으로 제공하는 환경 변수
                     // secure: false, // 배포 시 true (https 환경에서만 쿠키 전송)
-                    sameSite: 'Lax', // 🔥 쿠키 전송에 안정성 제공 (크롬 정책 대응)
+                    sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax', // 소셜 로그인 배포 시 None 필요
                     maxAge: 1000 * 60 * 15, // 고정값: 15분
                 });
 

@@ -8,6 +8,8 @@ import { logout } from '../../slices/authSlice';
 import API from '../../api/axiosApi';
 import { setUser } from '../../slices/authSlice';
 
+import { fetchUserWithRefresh } from '../../api/testApi'
+
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -17,25 +19,32 @@ const Header = () => {
   // 로그인 상태 확인용(소셜로그인 관련 및 로그인 전체 관련)
   // 헤더는 전역에서 관리를 하고 있기 때문에 유저의 정보가 필요하여 여기다가 상태 확인이 필요
   // 로그인 여부와 무관하게 한 번만 호출돼서 로그인 상태를 유지하거나, 비로그인 상태를 유지하는 데 사용됨
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const res = await API.get('/api/me', { withCredentials: true });
-        dispatch(setUser(res.data.user)); // 로그인 정보 Redux에 저장
-      } catch (error) {
-        console.log('🔴 accessToken 만료 또는 유효하지 않음');
 
-        try {
-          const newToken = await API.post('/api/token/reissue', {}, { withCredentials: true });
-          console.log('accessToken 재발급 완료');
-          const res = await API.get('/api/me', { withCredentials: true });
-          dispatch(setUser(res.data.user));
-        } catch (refreshError) {
-          console.log('refreshToken도 유효하지 않음:', refreshError);
-        }
-      }
-    }
-    fetchUser();
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     try {
+  //       const res = await API.get('/api/me', { withCredentials: true });
+  //       dispatch(setUser(res.data.user)); // 로그인 정보 Redux에 저장
+  //     } catch (error) {
+  //       console.log('🔴 accessToken 만료 또는 유효하지 않음');
+
+  //       try {
+  //         const newToken = await API.post('/api/token/reissue', {}, { withCredentials: true });
+  //         console.log('accessToken 재발급 완료');
+  //         const res = await API.get('/api/me', { withCredentials: true });
+  //         dispatch(setUser(res.data.user));
+  //       } catch (refreshError) {
+  //         console.log('refreshToken도 유효하지 않음:', refreshError);
+  //       }
+  //     }
+  //   }
+  //   fetchUser();
+  // }, [])
+
+  
+
+  useEffect(() => {
+    fetchUserWithRefresh(dispatch)
   }, [])
 
   // 비로그인 유저 장바구니 사용 불가 로그인 페이지로 전환

@@ -5,7 +5,7 @@ const getBaseURL = () => {
   if (process.env.NODE_ENV === "production") {
     return process.env.REACT_APP_API_URL || "https://jobdda.onrender.com"
   }
-  return "http://localhost:5000"
+  return "http://localhost:8000"
 }
 
 console.log("🌐 API Base URL:", getBaseURL())

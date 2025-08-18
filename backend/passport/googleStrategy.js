@@ -1,95 +1,51 @@
-// const GoogleStrategy = require('passport-google-oauth20').Strategy;
-// const connectDB = require('../config/database');
-// const passport = require('passport');
-// require('dotenv').config();
-
-// passport.use(
-//     new GoogleStrategy(
-//     {
-//         clientID: process.env.GOOGLE_CLIENT_ID,
-//         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-//         callbackURL: process.env.GOOGLE_CLIENT_URL
-//     },
-//     async (verifyAccessToken, verifyRefreshToken, profile, done) => {
-//         try {
-//             const db = await connectDB();
-
-//           // ✅ 기존에는 이메일만 비교했다면
-//           // const existingUser = await db.collection('user').findOne({ email: profile.emails[0].value });
-
-
-//           // provider까지 조건에 추가
-//           const existingUser = await db.collection('user').findOne({
-//             email: profile.emails[0].value,
-//             provider: 'google',
-//           });
-
-//           if(existingUser) {
-//             return done(null, existingUser);
-//           }
-
-//           // 없으면 새로 생성
-//           const newUser = {
-//             email: profile.emails[0].value,
-//             nickname: profile.displayName || '구글유저',
-//             provider: 'google',
-//             createdAt: new Date(),
-//           };
-
-//           const insertResult = await db.collection('user').insertOne(newUser);
-//           return done(null, { _id: insertResult.insertedId, ...newUser });
-
-
-//       } catch (err) {
-//         return done(err, null);
-//       }
-//     }
-//   )
-// );
-
+// googleStrategy.js
+const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const connectDB = require('../config/database');
-const passport = require('passport');
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-// <CHANGE> 환경변수가 있을 때만 Google 전략 등록
-if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
-  passport.use(
-      new GoogleStrategy(
-      {
-          clientID: process.env.GOOGLE_CLIENT_ID,
-          clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-          callbackURL: process.env.GOOGLE_CLIENT_URL
-      },
-      async (verifyAccessToken, verifyRefreshToken, profile, done) => {
-          try {
-              const db = await connectDB();
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: process.env.GOOGLE_CALLBACK_URL,
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      try {
+        const db = await connectDB();
+        const userCollection = db.collection('user'); // 컬렉션 이름 수정
 
-            const existingUser = await db.collection('user').findOne({
-              email: profile.emails[0].value,
-              provider: 'google',
-            });
+        const email = profile.emails && profile.emails[0]?.value ? profile.emails[0].value : null;
+        const nickname = profile.displayName || 'GoogleUser';
 
-            if(existingUser) {
-              return done(null, existingUser);
-            }
-
-            const newUser = {
-              email: profile.emails[0].value,
-              nickname: profile.displayName || '구글유저',
-              provider: 'google',
-              createdAt: new Date(),
-            };
-
-            const insertResult = await db.collection('user').insertOne(newUser);
-            return done(null, { _id: insertResult.insertedId, ...newUser });
-
-        } catch (err) {
-          return done(err, null);
+        if (!email) {
+          return done(new Error('Google 계정에서 이메일을 가져올 수 없습니다.'));
         }
+
+        let user = await userCollection.findOne({ email, provider: 'google' });
+
+        if (!user) {
+          const newUser = {
+            email,
+            nickname,
+            provider: 'google',
+            createdAt: new Date(),
+          };
+          const result = await userCollection.insertOne(newUser);
+          user = result.ops[0];
+        }
+
+        const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, {
+          expiresIn: '1h',
+        });
+
+        done(null, { ...user, token });
+      } catch (err) {
+        console.error('GoogleStrategy Error:', err);
+        done(err, null);
       }
-    )
-  );
-} else {
-  console.log('Google OAuth credentials not found - skipping Google strategy');
-}
+    }
+  )
+);
