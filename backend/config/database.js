@@ -14,11 +14,9 @@ const connectDB = async () => {
     try {
         if(db) return db;
         
-        // <CHANGE> sslValidate 옵션 제거하고 올바른 TLS 옵션 사용
+        // <CHANGE> Removed all TLS options that were causing SSL handshake errors
+        // <CHANGE> Simplified to basic connection options - let MongoDB Atlas handle SSL automatically
         const client = await new MongoClient(url, {
-            tls: true,
-            tlsAllowInvalidCertificates: false,
-            tlsAllowInvalidHostnames: false,
             serverSelectionTimeoutMS: 30000,
             connectTimeoutMS: 30000,
             socketTimeoutMS: 30000,
