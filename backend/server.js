@@ -4,7 +4,7 @@ const cors = require("cors")
 const cookieParser = require("cookie-parser")
 require("dotenv").config()
 const passport = require("passport")
-// <CHANGE> 데이터베이스 연결 함수 import 추가
+// <CHANGE> 데이터베이스 연결 import (이미 올바르게 설정됨)
 const connectDB = require("./config/database")
 
 const app = express()
@@ -20,11 +20,10 @@ app.use(passport.initialize())
 app.use(
   cors({
     origin: [
-      "http://localhost:3000",
-      "https://job-dda.vercel.app", 
+      process.env.CLIENT_URL || "http://localhost:3000",
+      "https://job-dda.vercel.app",
       "https://job-dda-dngus523-5101s-projects.vercel.app",
-      process.env.CLIENT_URL
-    ].filter(Boolean),
+    ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
@@ -84,26 +83,24 @@ app.use((error, req, res, next) => {
   })
 })
 
+// <CHANGE> PORT 변수가 startServer 호출 전에 정의됨 (올바름)
 const PORT = process.env.PORT || 5000
 
-// <CHANGE> 서버 시작 시 데이터베이스 연결 초기화 추가
 const startServer = async () => {
   try {
-    // 데이터베이스 연결 시도
+    // <CHANGE> 서버 시작 시 데이터베이스 연결 (이미 올바르게 설정됨)
     await connectDB()
     console.log("✅ 데이터베이스 연결 완료")
-    
-    // 서버 시작
-    app.listen(PORT, '0.0.0.0', () => {
+
+    app.listen(PORT, "0.0.0.0", () => {
       console.log(`🚀 Server running on port ${PORT}`)
     })
   } catch (error) {
-    console.error("❌ 서버 시작 실패:", error.message)
-    process.exit(1) // 데이터베이스 연결 실패 시 서버 종료
+    console.error("❌ Server startup failed:", error.message)
+    process.exit(1)
   }
 }
 
-// 서버 시작
 startServer()
 
 module.exports = app
