@@ -4,6 +4,8 @@ const cors = require("cors")
 const cookieParser = require("cookie-parser")
 require("dotenv").config()
 const passport = require("passport")
+// <CHANGE> 데이터베이스 연결 함수 import 추가
+const connectDB = require("./config/database")
 
 const app = express()
 
@@ -15,15 +17,14 @@ const socialRouter = require("./routes/socialRouter")
 
 app.use(passport.initialize())
 
-// <CHANGE> CORS origin을 단일 URL에서 배열로 변경하여 Vercel 프론트엔드 도메인들 허용
 app.use(
   cors({
     origin: [
-      "http://localhost:3000", // 로컬 개발용
-      "https://job-dda.vercel.app", // vercel 메인 배포 url
-      "https://job-dda-dngus523-5101s-projects.vercel.app", // vercel 프로젝트별 자동 생성 url
+      "http://localhost:3000",
+      "https://job-dda.vercel.app", 
+      "https://job-dda-dngus523-5101s-projects.vercel.app",
       process.env.CLIENT_URL
-    ].filter(Boolean), // undefined 값 제거
+    ].filter(Boolean),
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
@@ -84,8 +85,25 @@ app.use((error, req, res, next) => {
 })
 
 const PORT = process.env.PORT || 5000
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 Server running on port ${PORT}`)
-})
+
+// <CHANGE> 서버 시작 시 데이터베이스 연결 초기화 추가
+const startServer = async () => {
+  try {
+    // 데이터베이스 연결 시도
+    await connectDB()
+    console.log("✅ 데이터베이스 연결 완료")
+    
+    // 서버 시작
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`🚀 Server running on port ${PORT}`)
+    })
+  } catch (error) {
+    console.error("❌ 서버 시작 실패:", error.message)
+    process.exit(1) // 데이터베이스 연결 실패 시 서버 종료
+  }
+}
+
+// 서버 시작
+startServer()
 
 module.exports = app
