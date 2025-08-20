@@ -33,7 +33,7 @@ const createAccessToken = (user) => { // authJWT.js에서 refreshToken 검증 �
 // accessToken보다 훨씬 긴 유효기간을 가짐 (7일)
 // 이 함수는 controller에서 login할 떄 쓰는 함수로 거기서 import 해서 사용
 const createRefreshToken = async (user) => { // 유저 id만 담아 refreshToken 생성 (7일 유효)
-    const payload = { _id: user._id };
+    const payload = { _id: user._id.toString() }; // toString() 추가
     return jwt.sign(payload, process.env.JWT_REFRESH_SECRET, { expiresIn: '7d' });
 };
 

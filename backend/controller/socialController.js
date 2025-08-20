@@ -1,5 +1,7 @@
 // backend/controller/socialController.js
-
+// SameSite 설정 → 배포 시 cross-site 허용 (none)
+// secure 설정 → 배포 시 HTTPS
+// 쿠키 세팅 방식 그대로 유지
 const generateToken = require('../utils/jwtUtils'); // 토큰 관련 함수
 require('dotenv').config();
 
@@ -12,31 +14,29 @@ require('dotenv').config();
  */
 async function socialLoginHandler(req, res, user, domain = process.env.CLIENT_URL || 'http://localhost:3000') {
   try {
-    // 1️⃣ Access & Refresh 토큰 생성
     const accessToken = generateToken.createAccessToken(user);
     const refreshToken = await generateToken.createRefreshToken(user);
 
-    // 2️⃣ Refresh 토큰 DB 저장
     await generateToken.saveRefreshTokenToDB(user._id, refreshToken);
 
-    // 3️⃣ 쿠키 세팅
     const isProd = process.env.NODE_ENV === 'production';
+
+    // ✅ 쿠키 수정: SameSite=None, secure=true if prod (cross-site 허용)
     res.cookie('accessToken', accessToken, {
       httpOnly: true,
       secure: isProd,           // HTTPS일 때만 true
-      sameSite: 'lax',          // CSRF 방어
+      sameSite: isProd ? 'none' : 'lax', // 배포 시 cross-site 허용
       path: '/',
-      maxAge: 1000 * 60 * 15,   // 15분
+      maxAge: 1000 * 60 * 15,
     });
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       secure: isProd,
-      sameSite: 'lax',
+      sameSite: isProd ? 'none' : 'lax',
       path: '/',
-      maxAge: 1000 * 60 * 60 * 24 * 7, // 7일
+      maxAge: 1000 * 60 * 60 * 24 * 7,
     });
 
-    // 4️⃣ 로그인 성공 후 리다이렉트
     return res.redirect(domain);
   } catch (error) {
     console.error('소셜 로그인 처리 실패:', error);
@@ -44,9 +44,6 @@ async function socialLoginHandler(req, res, user, domain = process.env.CLIENT_UR
   }
 }
 
-// --------------------- 소셜별 콜백 ---------------------
-
-// Google
 exports.handleGoogleCallback = async (req, res) => {
   try {
     await socialLoginHandler(req, res, req.user);
@@ -56,7 +53,6 @@ exports.handleGoogleCallback = async (req, res) => {
   }
 };
 
-// Kakao
 exports.handleKakaoCallback = async (req, res) => {
   try {
     await socialLoginHandler(req, res, req.user);
@@ -66,7 +62,6 @@ exports.handleKakaoCallback = async (req, res) => {
   }
 };
 
-// Naver
 exports.handleNaverCallback = async (req, res) => {
   try {
     await socialLoginHandler(req, res, req.user);

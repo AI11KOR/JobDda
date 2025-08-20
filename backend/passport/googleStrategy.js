@@ -1,4 +1,4 @@
-// googleStrategy.js
+// backend/passport/googleStrategy.js
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const connectDB = require('../config/database');
@@ -15,35 +15,21 @@ passport.use(
     async (accessToken, refreshToken, profile, done) => {
       try {
         const db = await connectDB();
-        const userCollection = db.collection('user'); // 컬렉션 이름 수정
+        const userCollection = db.collection('user');
 
-        const email = profile.emails && profile.emails[0]?.value ? profile.emails[0].value : null;
+        const email = profile.emails?.[0]?.value;
         const nickname = profile.displayName || 'GoogleUser';
 
-        if (!email) {
-          return done(new Error('Google 계정에서 이메일을 가져올 수 없습니다.'));
-        }
+        if (!email) return done(new Error('Google 계정에서 이메일을 가져올 수 없음'));
 
         let user = await userCollection.findOne({ email, provider: 'google' });
-
         if (!user) {
-          const newUser = {
-            email,
-            nickname,
-            provider: 'google',
-            createdAt: new Date(),
-          };
-          const result = await userCollection.insertOne(newUser);
+          const result = await userCollection.insertOne({ email, nickname, provider: 'google', createdAt: new Date() });
           user = result.ops[0];
         }
 
-        const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, {
-          expiresIn: '1h',
-        });
-
-        done(null, { ...user, token });
+        done(null, user); // token 생성은 socialController에서 처리
       } catch (err) {
-        console.error('GoogleStrategy Error:', err);
         done(err, null);
       }
     }

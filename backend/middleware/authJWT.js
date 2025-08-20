@@ -15,10 +15,7 @@ const authJWT = async (req, res, next) => {
     // console.log('👉 받은 accessToken:', token); // ✅ 실제 쿠키 들어왔는지 확인
 
      // ✅ 1. accessToken 없는 경우 → 로그인 안 된 상태
-    if(!token) {
-        // ✅ 1. accessToken이 없을 경우
-        return res.status(401).json({ message: 'accessToken 없음' })
-    }
+    if (!token) return res.status(401).json({ message: 'accessToken 없음' });
 
     try {
         // ✅ 2. accessToken이 유효할 경우 → req.user에 정보 넣고 통과
@@ -34,9 +31,7 @@ const authJWT = async (req, res, next) => {
         if(error.name === 'TokenExpiredError') {
             try {
                 const refreshToken = req.cookies.refreshToken; // 쿠키에서 refreshToken 가져오기
-                if(!refreshToken) {
-                    return res.status(401).json({ message: 'Refresh Token 없음' });
-                }
+                if (!refreshToken) return res.status(401).json({ message: 'Refresh Token 없음' });
 
                 // 이 검사를 통과하면 다음 단계에서 DB와 비교
                 const decodedRefresh = verifyRefreshToken(refreshToken); // ✅ 함수 분리하여 명확하게
@@ -50,17 +45,13 @@ const authJWT = async (req, res, next) => {
                 // : 해커가 쿠키를 훔쳐서 refreshToken만 바꿔치기하면, DB 검증 없이는 그대로 통과될 수 있음.
                 // 그래서 반드시 stored.token === refreshToken 비교
                 // // ✅ 반드시 DB 값과 쿠키 값을 비교 (보안 핵심)
-                if (!stored || stored.token !== refreshToken) {
-                    return res.status(403).json({ message: 'Refresh Token 유효하지 않음' });
-                }
+                if (!stored || stored.token !== refreshToken) return res.status(403).json({ message: 'Refresh Token 유효하지 않음' });
 
                 // ✅ 5. 유저 정보 가져와서 새로운 accessToken 발급
                 const db = await connectDB();
                 const user = await db.collection('user').findOne({ _id: new ObjectId(decodedRefresh._id) });
 
-                if(!user) {
-                    return res.status(404).json({ message: '유저 없음' });
-                }
+                if (!user) return res.status(404).json({ message: '유저 없음' });
 
                 const newAccessToken = createAccessToken(user);
                 // 받아온 createAccessToken(유저 정보 _id: email, nickname 15분 유효) 쿠키에 저장
