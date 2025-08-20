@@ -8,7 +8,6 @@ import { logout } from '../../slices/authSlice';
 import API from '../../api/axiosApi';
 import { setUser } from '../../slices/authSlice';
 
-import { fetchUserWithRefresh } from '../../api/testApi'
 
 const Header = () => {
   const navigate = useNavigate();
@@ -23,34 +22,24 @@ const Header = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await API.get('/api/me', { withCredentials: true });
-        // 기존에는 setUser(res.data.user)만 했음
-        // 변경: 로그인 상태를 명시적으로 isLoggedIn=true로 반영
+        const res = await API.get('/api/me');
         dispatch(setUser({ ...res.data.user, isLoggedIn: true }));
       } catch (error) {
         console.log('🔴 accessToken 만료 또는 유효하지 않음');
-
         try {
-          await API.post('/api/token/reissue', {}, { withCredentials: true });
-          console.log('accessToken 재발급 완료');
-          const res = await API.get('/api/me', { withCredentials: true });
+          await API.post('/api/token/reissue');
+          const res = await API.get('/api/me');
           dispatch(setUser({ ...res.data.user, isLoggedIn: true }));
-          // dispatch(setUser(res.data.user));
-        } catch (refreshError) {
-          console.log('refreshToken도 유효하지 않음:', refreshError);
-          // refreshToken도 만료 시 Redux 초기화
+        } catch {
           dispatch(setUser({ user: null, isLoggedIn: false }));
         }
       }
-    }
+    };
     fetchUser();
   }, [dispatch]);
 
   
 
-  useEffect(() => {
-    fetchUserWithRefresh(dispatch)
-  }, [])
 
   // 비로그인 유저 장바구니 사용 불가 로그인 페이지로 전환
   const handleCartClick = () => {
@@ -73,17 +62,25 @@ const Header = () => {
   }
 
   const handleLogout = async () => {
-    const confirmedLogout = window.confirm('정말 로그아웃 하시겠습니까?');
-    if (!confirmedLogout) return;
+    if (!window.confirm('정말 로그아웃 하시겠습니까?')) return;
 
     try {
-      await API.post('/api/logout', {}, { withCredentials: true });
+      await API.post('/api/logout');
       dispatch(logout());
       navigate('/login');
     } catch (error) {
       console.log('로그아웃 실패:', error);
     }
   };
+
+  //   try {
+  //     await API.post('/api/logout', {}, { withCredentials: true });
+  //     dispatch(logout());
+  //     navigate('/login');
+  //   } catch (error) {
+  //     console.log('로그아웃 실패:', error);
+  //   }
+  // };
 
   return (
     <div className={styles.header}>

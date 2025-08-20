@@ -33,6 +33,8 @@ import AdminDashBoard from './pages/admin/AdminDashBoard';
 import AdminPostPage from './pages/admin/AdminPostPage';
 import AdminProductPage from './pages/admin/AdminProductPage';
 
+import TestPage from './pages/common/TestPage';
+
 function App() {
   return (
     <div className="App">
@@ -65,6 +67,8 @@ function App() {
           <Route path="/adminDashBoard" element={<AdminDashBoard />} />
           <Route path="/adminPost" element={<AdminPostPage />} />
           <Route path="/adminProduct" element={<AdminProductPage />} />
+
+          <Route path="/testPage" element={<TestPage />} />
         </Route>
         <Route path="*" element={<NotFountPage />} />
       </Routes>
