@@ -207,7 +207,7 @@ exports.cartDelete = async (req, res) => {
 exports.buyClickBtn = async (req, res) => {
     try {
         const db = await connectDB();
-        const userId = req.user._id;
+        const userId = req.user._id; // authJWT 미들웨어에서 가져오는 로그인된 유저 ID
         const { items, totalPrice, totalQuantity } = req.body; // Cart.jsx 123~125줄이 배열을 나타내기에
         
         // const items = req.body 에러 발생으로 const items = req.body.items로 처리해야 함
@@ -221,6 +221,7 @@ exports.buyClickBtn = async (req, res) => {
         console.log('🛒 받은 totalQuantity:', totalQuantity);
         console.log('✅ [buyClickBtn] 받은 items:', req.body.items);
 
+        // db에 넣ㅇㄹ 형식 맞추기
         const productsToInsert = items.map(item => ({
             userId: new ObjectId(userId),
             name: item.name,
@@ -231,7 +232,6 @@ exports.buyClickBtn = async (req, res) => {
             image: item.image,
             createdAt: new Date(),
         }));
-
 
 
         console.log('📦 DB에 넣을 데이터:', productsToInsert);
@@ -296,6 +296,7 @@ exports.paymentPage = async (req, res) => {
 // 구매할 경우 iamport 사용해서 처리하는 코드
 exports.verifyPayment = async (req, res) => {
     const { imp_uid } = req.body;
+    console.log("🔍 verifyPayment imp_uid:", imp_uid);
 
     try {
         // iamport 토큰 발급
@@ -308,7 +309,7 @@ exports.verifyPayment = async (req, res) => {
 
         // 결제정보 검증
         // 실제 배포할 때는 httpsAgent를 반드시 제거해야 함 개발환경에선 임시로 허용
-        const httpsAgent = new https.Agent({ rejectUnauthorized: false }); // TLS 우회 설정
+        // const httpsAgent = new https.Agent({ rejectUnauthorized: false }); // TLS 우회 설정
 
         const paymentData = await axios.get(
             `https://api.iamport.kr/payments/${imp_uid}`,
@@ -391,8 +392,8 @@ exports.paymentComplete = async (req, res) => {
         console.log('🧹 삭제된 개수:', deleted.deletedCount);
 
         // 장바구니 상태 확인
-        const sample = await db.collection('cart').find({ id: String(userId) }).toArray();
-        console.log('현재 장바구니 상태:', sample);
+        // const sample = await db.collection('cart').find({ id: String(userId) }).toArray();
+        // console.log('현재 장바구니 상태:', sample);
 
         // ✅ [추가 권장] 결제 완료 후 payment 임시데이터 정리
         await db.collection('payment').deleteMany({ userId: new ObjectId(userId) });
