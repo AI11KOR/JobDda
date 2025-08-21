@@ -119,7 +119,8 @@ exports.findPassword = async (req, res) => {
 exports.getUserInfo = async (req, res) => {
     try {
         const db = await connectDB();
-        const user = await db.collection('user').findOne({ _id: new ObjectId(req.user._id) })
+        const userId = String(req.user._id);
+        const user = await db.collection('user').findOne({ _id: new ObjectId(userId) })
 
         if(!user) return res.status(404).json({ message: '유저 정보 없음' })
 
@@ -215,7 +216,8 @@ exports.myPage = async(req, res) => {
 exports.myPageUserChangeInfo = async (req, res) => {
     try {
         const db = await connectDB();
-        const userId = req.user._id; // 여기 req.user는 decoded authJWT에서 verifyAccessToken을 사용
+        const userId = String(req.user._id); // 여기 req.user는 decoded authJWT에서 verifyAccessToken을 사용
+        
         // 즉, Access Token payload에서 온 것 (_id, nickname, email 등 표기 중 _Id를 말하는 것)
         const { email, nickname, number, address, detailAddr } = req.body;
 

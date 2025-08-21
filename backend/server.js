@@ -143,7 +143,7 @@ app.use(
       "http://localhost:3000", // 로컬 테스트
     ],
     credentials: true, // ✅ 쿠키 허용
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
   })
 );
