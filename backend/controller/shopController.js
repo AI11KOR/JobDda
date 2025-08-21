@@ -324,9 +324,10 @@ exports.verifyPayment = async (req, res) => {
           // 3. 검증 성공 응답
           res.status(200).json({ success: true, amount, status });
 
+          
     } catch (error) {
-        console.error('❌ 결제 검증 실패:', error);
-        res.status(500).json({ success: false, message: '결제 검증 실패', error });
+        console.error('❌ 결제 검증 실패:', error.response?.data || error.message);
+        res.status(500).json({ success: false, message: '결제 검증 실패',  error: error.response?.data || error.message });
     }
 }
 
