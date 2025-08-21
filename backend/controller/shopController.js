@@ -315,7 +315,7 @@ exports.verifyPayment = async (req, res) => {
             `https://api.iamport.kr/payments/${imp_uid}`,
             {
               headers: { Authorization: access_token },
-              httpsAgent, // 추가된 부분
+              // httpsAgent, // 추가된 부분
             }
           );
       
