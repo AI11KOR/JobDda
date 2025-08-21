@@ -51,7 +51,13 @@ const Payment = () => {
         console.log("Cart 데이터 조회 실패:", cartError)
       }
     } catch (error) {
-      console.log(error)
+      if (error.response) {
+        console.error("⚠️ fetchPayment 서버 응답 에러:", error.response.status, error.response.data)
+      } else if (error.request) {
+        console.error("⚠️ fetchPayment 서버 응답 없음:", error.request)
+      } else {
+        console.error("⚠️ fetchPayment 요청 에러:", error.message)
+      }
     }
   }
 
@@ -88,29 +94,49 @@ const Payment = () => {
         buyer_postcode: userInfo.postcode,
       },
       async (rsp) => {
-        if (rsp.success) {
-          console.log("결제 성공", rsp)
-
-          await API.post("/api/payment/verify", { imp_uid: rsp.imp_uid })
+        if (!rsp.success) {
+          alert(`결제에 실패하였습니다: ${rsp.error_msg}`)
+          console.error("💳 결제 실패 상세:", rsp)
+          return
+        }
+  
+        console.log("✅ 결제 성공", rsp)
+  
+        try {
+          // 🔹 결제 검증
+          const verifyRes = await API.post("/api/payment/verify", { imp_uid: rsp.imp_uid })
+          console.log("🔍 결제 검증 응답:", verifyRes.status, verifyRes.data)
+  
           const itemsWithProductId = productInfo.map((item) => ({
             cartId: item.cartId,
             title: item.title,
             price: item.price,
             quantity: item.quantity,
           }))
-
-          await API.post("/api/payment/complete", {
+  
+          // 🔹 결제 완료 서버 기록
+          const completeRes = await API.post("/api/payment/complete", {
             imp_uid: rsp.imp_uid,
             items: itemsWithProductId,
             totalPrice,
             totalQuantity,
           })
+          console.log("🔍 결제 완료 응답:", completeRes.status, completeRes.data)
+  
           dispatch(clearCart())
-
           alert("결제가 완료되었습니다.")
           navigate("/paymentSuccess")
-        } else {
-          alert(`결제에 실패하였습니다: ${rsp.error_msg}`)
+        } catch (error) {
+          if (error.response) {
+            console.error("⚠️ 결제 처리 서버 에러:", error.response.status, error.response.data)
+            alert("결제 처리 중 서버 오류가 발생했습니다.")
+          } else if (error.request) {
+            console.error("⚠️ 결제 처리 서버 응답 없음:", error.request)
+            alert("결제 처리 중 서버 응답이 없습니다.")
+          } else {
+            console.error("⚠️ 결제 처리 요청 에러:", error.message)
+            alert("결제 처리 중 오류가 발생했습니다.")
+          }
         }
       },
     )
