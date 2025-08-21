@@ -298,7 +298,16 @@ exports.verifyPayment = async (req, res) => {
     const { imp_uid } = req.body;
     console.log("🔍 verifyPayment imp_uid:", imp_uid);
 
+    if (!imp_uid) {
+        console.error("❌ imp_uid가 없습니다!");
+        return res.status(400).json({ success: false, message: "imp_uid가 필요합니다." });
+    }
+
     try {
+        // 🔹 디버깅: Iamport 토큰 발급 직전
+        console.log("💡 Iamport 토큰 발급 시도");
+
+
         // iamport 토큰 발급
         const tokenRes = await axios.post('https://api.iamport.kr/users/getToken', {
             imp_key: process.env.IAMPORT_API_KEY,
@@ -311,6 +320,9 @@ exports.verifyPayment = async (req, res) => {
         // 실제 배포할 때는 httpsAgent를 반드시 제거해야 함 개발환경에선 임시로 허용
         // const httpsAgent = new https.Agent({ rejectUnauthorized: false }); // TLS 우회 설정
 
+        // 🔹 디버깅: 발급된 토큰 확인
+        console.log("💡 발급된 Iamport access_token:", access_token);
+
         const paymentData = await axios.get(
             `https://api.iamport.kr/payments/${imp_uid}`,
             {
@@ -318,8 +330,14 @@ exports.verifyPayment = async (req, res) => {
               // httpsAgent, // 추가된 부분
             }
           );
+
+          // 🔹 디버깅: Iamport 결제 데이터 확인
+        console.log("💡 Iamport paymentData:", JSON.stringify(paymentData.data, null, 2));
       
           const { amount, status } = paymentData.data.response;
+
+          // 🔹 디버깅: 검증 직전
+        console.log(`💡 검증 성공: amount=${amount}, status=${status}`);
       
           // 3. 검증 성공 응답
           res.status(200).json({ success: true, amount, status });

@@ -18,10 +18,18 @@ const Payment = () => {
   const [selectPg, setSelectPg] = useState("")
   const dispatch = useDispatch()
 
+
+  // 🔹 디버깅용: axios default headers
+  console.log("💡 Axios default headers:", API.defaults.headers);
+
   // 데이터 가져오기
   const fetchPayment = async () => {
     try {
       const response = await API.get("/api/payment")
+
+      // 🔹 전체 데이터 확인
+      console.log("✅ 전체 응답 데이터:", JSON.stringify(response.data, null, 2));
+
       const items = response.data.payment
       setProductInfo(items)
       setUserInfo(response.data.user)
@@ -31,9 +39,7 @@ const Payment = () => {
       setTotalPrice(price)
       setTotalQuantity(quantity)
 
-      // 🔍 전체 데이터 구조를 완전히 확인
-      console.log("✅ 전체 응답 데이터:", JSON.stringify(response.data, null, 2))
-      console.log("✅ 결제 대상 상품 배열:", JSON.stringify(items, null, 2))
+
 
       if (items[0]) {
         console.log("🔍 첫 번째 상품의 모든 필드:", Object.keys(items[0]))
