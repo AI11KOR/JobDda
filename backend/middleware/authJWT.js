@@ -64,7 +64,7 @@ const authJWT = async (req, res, next) => {
                 });
 
                 req.user = {
-                    _id: user._id,
+                    _id: user._id.toString(),
                     email: user.email,
                     nickname: user.nickname,
                 };

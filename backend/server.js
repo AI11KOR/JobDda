@@ -153,46 +153,6 @@ app.use(cookieParser());
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
-// 요청 로그
-app.use((req, res, next) => {
-  console.log(`📝 ${req.method} ${req.path} - ${new Date().toLocaleTimeString()}`);
-  next();
-});
-
-// ------------------
-// 테스트용 로그인 라우트
-// ------------------
-app.post("/api/login", (req, res) => {
-  const { email, password } = req.body;
-  
-  // 실제 로그인 로직 대신 테스트용
-  // 원래는 DB 확인 후 accessToken 생성
-  if (!email || !password) {
-    return res.status(400).json({ message: "이메일과 비밀번호 필요" });
-  }
-
-  const accessToken = "dummyAccessToken123"; // 테스트용 더미 토큰
-
-  res.cookie("accessToken", accessToken, {
-    httpOnly: true, // JS에서 접근 불가
-    secure: process.env.NODE_ENV === "production", // HTTPS에서만 전송
-    sameSite: "None", // cross-site 허용
-    maxAge: 1000 * 60 * 60 * 24, // 1일
-  });
-
-  res.json({ message: "로그인 성공, 쿠키 발급됨" });
-});
-
-// ------------------
-// /api/me 라우트 - 쿠키 확인용
-// ------------------
-app.get("/api/me", (req, res) => {
-  const token = req.cookies.accessToken;
-  if (!token) {
-    return res.status(401).json({ message: "accessToken 없음" });
-  }
-  res.json({ message: "accessToken 있음", token });
-});
 
 // 라우터 연결 (기존)
 app.use("/api", authRouter);
@@ -201,15 +161,6 @@ app.use("/api", shopRouter);
 app.use("/api", adminRouter);
 app.use("/auth", socialRouter);
 
-// 헬스 체크
-app.get("/health", (req, res) => {
-  res.status(200).json({
-    status: "OK",
-    message: "Server is running",
-    timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || "development",
-  });
-});
 
 // 기본 라우트
 app.get("/", (req, res) => {
@@ -218,7 +169,6 @@ app.get("/", (req, res) => {
     version: "1.0.0",
     status: "Running",
     endpoints: {
-      health: "/health",
       api: "/api",
       auth: "/auth",
     },

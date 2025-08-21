@@ -20,7 +20,7 @@ const { ObjectId } = require('mongodb');
 // 유저 정보를 담아 accessToken 생성 (15분 유효)
 const createAccessToken = (user) => { // authJWT.js에서 refreshToken 검증 후 새로운 accessToken 생성 시 사용됨
     const payload = { // 이 함수에는 _id, email, nickname을 담아서 authJWT의 accessToken 생성 및 쿠키에 저장하게 됨
-        _id: user._id,
+        _id: user._id.toString(),
         email: user.email,
         nickname: user.nickname,
       };

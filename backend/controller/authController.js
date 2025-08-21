@@ -21,7 +21,7 @@ exports.login = async (req, res) => {
             return res.status(401).json({ message: '비밀번호가 일치하지 않습니다.' })
         }
         const payload = { 
-            _id: user._id, 
+            _id: user._id.toString(), 
             email: user.email, 
             nickname: user.nickname
         };
@@ -39,7 +39,8 @@ exports.login = async (req, res) => {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production', // 배포 시 https만 전송
             // secure: false,
-            sameSite: 'Lax',
+            // sameSite: 'Lax',
+            sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
             maxAge: 1000 * 60 * 15, // 15min
             path: '/',
         })
@@ -48,13 +49,14 @@ exports.login = async (req, res) => {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production', // 배포 시 https만 전송
             // secure: false,
-            sameSite: 'Lax',
+            // sameSite: 'Lax',
+            sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
             maxAge: 1000 * 60 * 60 *24 * 7, // 7day
             path: '/',
         })
 
         res.status(200).json({ message: '로그인 성공', user: { 
-            _id: user._id,
+            _id: user._id.toString(),
             email: user.email,
             nickname: user.nickname
         } })
