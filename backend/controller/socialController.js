@@ -2,7 +2,7 @@
 // SameSite 설정 → 배포 시 cross-site 허용 (none)
 // secure 설정 → 배포 시 HTTPS
 // 쿠키 세팅 방식 그대로 유지
-const generateToken = require('../utils/jwtUtils'); // 토큰 관련 함수
+const { generateToken } = require('../utils/jwtUtils'); // 토큰 관련 함수
 require('dotenv').config();
 
 /**
