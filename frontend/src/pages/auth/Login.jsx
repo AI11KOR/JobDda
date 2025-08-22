@@ -148,7 +148,7 @@ const Login = () => {
           <div className={styles.socialLogin}>
             <button
               className={`${styles.socialButton} ${styles.naverButton}`}
-              onClick={() => (window.location.href = "http://localhost:8000/auth/naver")}
+              onClick={() => (window.location.href = "https://jobdda-1.onrender.com/auth/naver")}
             >
               <img src="/common/naverImg2.png" alt="네이버" />
               <span>네이버로 로그인</span>
@@ -156,7 +156,7 @@ const Login = () => {
 
             <button
               className={`${styles.socialButton} ${styles.googleButton}`}
-              onClick={() => (window.location.href = "http://localhost:8000/auth/google")}
+              onClick={() => (window.location.href = "https://jobdda-1.onrender.com/auth/google")}
             >
               <img src="/common/google.png" alt="구글" />
               <span>구글로 로그인</span>
@@ -164,7 +164,7 @@ const Login = () => {
 
             <button
               className={`${styles.socialButton} ${styles.kakaoButton}`}
-              onClick={() => (window.location.href = "http://localhost:8000/auth/kakao")}
+              onClick={() => (window.location.href = "https://jobdda-1.onrender.com/auth/kakao")} // http://localhost:8000/auth/kakao
             >
               <img src="/common/KakaoTalk_logo.svg.png" alt="카카오" />
               <span>카카오로 로그인</span>

@@ -10,7 +10,7 @@ passport.use(
     {
       clientID: process.env.NAVER_CLIENT_ID,
       clientSecret: process.env.NAVER_CLIENT_SECRET,
-      callbackURL: process.env.NAVER_CALLBACK_URL,
+      callbackURL: process.env.NAVER_CLIENT_URL,
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
