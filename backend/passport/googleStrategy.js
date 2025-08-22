@@ -26,10 +26,10 @@ passport.use(
         if (!email) return done(new Error('Google 계정에서 이메일을 가져올 수 없음'));
 
         // providerId + provider 로 1차 조회 (이력이 있으면 가장 확실)
-        let user = await users.findOne({ providerId, provider });
+        let user = await userCollection.findOne({ providerId, provider });
 
         // 그래도 없으면 같은 이메일로 소셜 계정이 있는지 확인(선택)
-        if (!user) user = await users.findOne({ email, provider });
+        if (!user) user = await userCollection.findOne({ email, provider });
 
         if (!user) {
           const newUser = { providerId, email, nickname, provider, createdAt: new Date() };
