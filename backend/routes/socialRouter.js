@@ -12,7 +12,20 @@ const authJWT = require('../middleware/authJWT');
 
 // 구글 로그인
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
-router.get('/google/callback', passport.authenticate('google', { session: false, failureRedirect: '/login' }), handleGoogleCallback);
+
+// 추가 미들웨어 authenticate 다음에 req.user 상태를 확인 및 로그
+router.get('/google/callback', passport.authenticate('google', { session: false, failureRedirect: '/login' }),
+(req, res, next) => {
+    console.log('[ROUTE] google/callback req.user:', {
+      _id: req.user?._id,
+      email: req.user?.email,
+      provider: req.user?.provider,
+    });
+    if (!req.user) return res.status(401).json({ message: 'Google 인증 실패(사용자 없음)' }); // ✅ 가드
+    next();
+  },
+  handleGoogleCallback
+);
 
 // 카카오 로그인
 router.get('/kakao', passport.authenticate('kakao', { scope: ['profile_nickname', 'account_email'] }));
