@@ -22,6 +22,8 @@ app.use(passport.initialize());
 app.use(
   cors({
     origin: [
+      "https://jobdda.cloud",   // ✅ 새 프론트
+      "https://www.jobdda.cloud", // ✅ www도 추가
       "https://job-dda.vercel.app", // Vercel 프론트
       "http://localhost:3000", // 로컬 테스트
     ],
