@@ -102,21 +102,21 @@
     }
   
     .leftSide {
-      gap: 24px;
+      gap: 20px;
     }
   
     .leftSide2 {
-      gap: 20px;
+      gap: 18px;
     }
   
     .leftBtn,
     .rightBtn {
-      font-size: 14px;
-      padding: 6px 12px;
+      font-size: 10px;
+      padding: 4px 8px;
     }
   
     .logo {
-      font-size: 24px;
+      font-size: 18px;
     }
   
     .img {
@@ -131,7 +131,7 @@
     }
   
     .rightSide {
-      gap: 12px;
+      gap: 10px;
     }
   
     .nickname,
