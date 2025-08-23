@@ -97,60 +97,42 @@ const Header = () => {
           <img className={styles.img} src={logo || "/placeholder.svg"} alt="logoImg" />
           <h1 className={styles.logo}>잡다</h1>
         </div>
-
-        {/* 데스크톱 네비 */}
-        <nav className={styles.leftSide2}>
-          <div onClick={() => go("/list")} className={styles.leftBtn}>게시판</div>
-          <div onClick={() => go("/shop")} className={styles.leftBtn}>상품몰</div>
-          <div onClick={handleCartClick} className={styles.leftBtn}>장바구니</div>
-        </nav>
+        <div className={styles.leftSide2}>
+          <div onClick={() => navigate("/list")} className={styles.leftBtn}>
+            게시판
+          </div>
+          <div onClick={() => navigate("/shop")} className={styles.leftBtn}>
+            상품몰
+          </div>
+          <div onClick={handleCartClick} className={styles.leftBtn}>
+            장바구니
+          </div>
+        </div>
       </section>
-
       <section className={styles.rightSide}>
-        {/* 모바일 햄버거 버튼 */}
-        <button className={styles.burger} onClick={() => setOpen(v => !v)} aria-label="open menu">
-          <span/><span/><span/>
-        </button>
-
-        {/* 데스크톱 우측 */}
-        <div className={styles.rightInline}>
-          {isLoggedIn ? (
-            <>
-              <span className={isAdmin ? styles.adminNickname : styles.nickname}>
-                {isAdmin ? "관리자님 환영합니다." : `${user?.nickname ?? ''}님 환영합니다`}
-              </span>
-              <div onClick={handleMyPageClick} className={styles.rightBtn}>마이페이지</div>
-              <div onClick={handleLogout} className={styles.rightBtn}>로그아웃</div>
-            </>
-          ) : (
-            <>
-              <div onClick={() => go("/login")} className={styles.rightBtn}>로그인</div>
-              <div onClick={() => go("/condition")} className={styles.rightBtn}>회원가입</div>
-            </>
-          )}
-        </div>
+        {isLoggedIn ? (
+          <>
+            <span className={isAdmin ? styles.adminNickname : styles.nickname}>
+              {isAdmin ? "관리자님 환영합니다." : `${user.nickname}님 환영합니다`}
+            </span>
+            <div onClick={handleMyPageClick} className={styles.rightBtn}>
+              마이페이지
+            </div>
+            <div onClick={handleLogout} className={styles.rightBtn}>
+              로그아웃
+            </div>
+          </>
+        ) : (
+          <>
+            <div onClick={() => navigate("/login")} className={styles.rightBtn}>
+              로그인
+            </div>
+            <div onClick={() => navigate("/condition")} className={styles.rightBtn}>
+              회원가입
+            </div>
+          </>
+        )}
       </section>
-
-      {/* ✅ 모바일 드롭다운 메뉴 */}
-      {open && (
-        <div className={styles.mobileMenu}>
-          <div onClick={() => go("/list")} className={styles.mobileItem}>게시판</div>
-          <div onClick={() => go("/shop")} className={styles.mobileItem}>상품몰</div>
-          <div onClick={handleCartClick} className={styles.mobileItem}>장바구니</div>
-          <div className={styles.mobileDivider}/>
-          {isLoggedIn ? (
-            <>
-              <div onClick={handleMyPageClick} className={styles.mobileItem}>마이페이지</div>
-              <div onClick={handleLogout} className={styles.mobileItem}>로그아웃</div>
-            </>
-          ) : (
-            <>
-              <div onClick={() => go("/login")} className={styles.mobileItem}>로그인</div>
-              <div onClick={() => go("/condition")} className={styles.mobileItem}>회원가입</div>
-            </>
-          )}
-        </div>
-      )}
     </div>
   );
 };
